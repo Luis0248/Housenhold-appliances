@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Household Appliances</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Registro e inicio de sesión -->
+        <div id="auth" class="auth-container">
+            <div class="auth-image">
+                <img src="./img/Logo de la empresa.jpeg" alt="Imagen de bienvenida">
+            </div>
+            <div class="auth-form">
+                <div id="register-form">
+                    <h2>¡Bienvenido! Ingresa tus Datos</h2>
+                    <form id="register">
+                        <p>Nombres</p>
+                        <input type="name" id="nombre" placeholder="Ej. Juan Diego" required>
+                        <p>Apellidos</p>
+                        <input type="lastname" id="apellido" placeholder="Ej. Escamilla Rojas" required>
+                        <p>Correo Electrónico</p>
+                        <input type="email" id="email" placeholder="Ej. jdiegorojas@gmail.com" required>
+                        <p>Contraseña</p>
+                        <input type="password" id="password" placeholder="*********" required>
+                        <p>Confirmar Contraseña</p>
+                        <input type="password" id="confirm-password" placeholder="*********" required>
+                        <button type="submit">Crear Cuenta</button>
+                    </form>
+                    <script src="./js/scripts.js">
+                        document.getElementById('register').addEventListener('submit', function (e) {
+                            e.preventDefault();
+
+                            const nombre = document.getElementById('nombre').value;
+                            const apellido = document.getElementById('apellido').value;
+                            const email = document.getElementById('email').value;
+                            const password = document.getElementById('password').value;
+
+                            axios.post('http://localhost:8080/usuarios', {
+                                nombre: nombre,
+                                apellido: apellido,
+                                email: email,
+                                password: password
+                            })
+                                .then(function (response) {
+                                    console.log(response.data);
+                                    alert('Usuario registrado exitosamente!');
+                                })
+                                .catch(function (error) {
+                                    console.error('Error:', error);
+                                });
+                        });
+                    </script>
+                    <p class="login-prompt">¿Ya estás registrado? <a href="#" onclick="showLogin()">Iniciar sesión</a>
+                    </p>
+                </div>
+                <div id="login-form" style="display: none;">
+                    <h2>Iniciar sesión</h2>
+                    <form id="login">
+                        <P>Correo electrónico</P>
+                        <input type="email" id="login-email" placeholder="diegorojas@gmail.com" required>
+                        <p>Contraseña</p>
+                        <input type="password" id="login-password" placeholder="*********" required>
+                        <button type="submit">Iniciar sesión</button>
+                    </form>
+                    <p class="login-prompt">¿No tienes cuenta? <a href="#" onclick="showRegister()">Crear cuenta</a></p>
+                </div>
+            </div>
+        </div>
+        <section id="products"></section>
+        <h2>Lista de Productos</h2>
+        <div class="product" id="product-list">
+            <!-- Aquí irá la tabla de productos -->
+            <table id="product-table" border="1" cellspacing="0" cellpadding="10">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Imagen</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Los productos se cargarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+        </section>
+
+
+        <!-- Página de inicio -->
+        <div id="homepage" style="display: none;">
+            <header>
+                <h1>Household Appliances</h1>
+                <nav>
+                    <a href="#" onclick="showHomepage()">Inicio</a>
+                    <a href="#" onclick="showProductos()">Productos</a>
+                    <a href="#" onclick="showProfile()">Perfil</a>
+                    <a href="#" onclick="logout()">Cerrar sesión</a>
+                </nav>
+            </header>
+
+            <!-- Sección para agregar productos -->
+            <section id="add-product">
+                <h2>Agregar Producto</h2>
+                <form id="product-form">
+                    <p>Nombre del Producto</p>
+                    <input type="text" id="product-name" placeholder="Ej. Olla Multifuncional" required>
+                    <p>Descripción</p>
+                    <input type="text" id="product-description" placeholder="Descripción del producto" required>
+                    <p>Precio</p>
+                    <input type="number" id="product-price" placeholder="Precio" required>
+                    <p>Stock</p>
+                    <input type="number" id="product-stock" placeholder="Cantidad en stock" required>
+                    <p>Imagen URL</p>
+                    <input type="text" id="product-image" placeholder="URL de la imagen" required>
+                    <button type="submit">Agregar Producto</button>
+                </form>
+
+            </section>
+
+            <!-- Sección de productos -->
+            <section id="products">
+                <h2>Lista de Productos</h2>
+                <div id="product-list">
+                    <!-- Los productos se agregarán aquí dinámicamente -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Detalles del producto -->
+        <div id="product-details" style="display: none;">
+            <button onclick="hideProductDetails()">Volver</button>
+            <img id="product-img" src="./img/olla imusa.avif" alt="Imagen del Producto">
+            <p id="product-info"></p>
+            <button id="button_cart" data-id="1" onclick="addToCart(this)">
+                <i class="fa-solid fa-cart-shopping"></i> Agregar al carrito
+            </button>
+        </div>
+
+        <!-- Perfil del comprador -->
+        <div id="profile" style="display: none;">
+            <h2>Perfil</h2>
+            <form id="profile-form">
+                <p>Nombre</p>
+                <input type="text" id="edit-nombre" placeholder="Nombre" required>
+                <p>Apellidos</p>
+                <input type="text" id="edit-apellido" placeholder="Apellidos" required>
+                <p>Correo Electrónico</p>
+                <input type="email" id="edit-email" placeholder="Correo" required>
+                <p>Contraseña</p>
+                <input type="password" id="edit-password" placeholder="Contraseña" required>
+                <br>
+                <button type="submit">Actualizar</button>
+            </form>
+
+            <!-- Botón para eliminar cuenta -->
+            <button id="delete-account-btn" style="background-color: red; color: white;">Eliminar Cuenta</button>
+
+        </div>
+
+        <script type="module">
+
+            // Manejo del formulario de productos
+            document.getElementById('product-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const nombre = document.getElementById('product-name').value;
+                const descripcion = document.getElementById('product-description').value;
+                const precio = document.getElementById('product-price').value;
+                const stock = document.getElementById('product-stock').value;
+                const imagenUrl = document.getElementById('product-image').value;
+
+                axios.post('http://localhost:8080/productos', {
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    precio: precio,
+                    stock: stock,
+                    imagen_url: imagenUrl
+                })
+                    .then(function (response) {
+                        console.log('Producto agregado:', response.data);  // Verifica que los datos se devuelven correctamente
+                        alert('Producto agregado exitosamente');
+                        fetchProductos();  // Llama a la función para actualizar la lista de productos
+                    })
+                    .catch(function (error) {
+                        console.error('Error al agregar el producto:', error);
+                        alert('Hubo un error al agregar el producto.');
+                    });
+            });
+
+            document.getElementById('profile-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const userId = localStorage.getItem('userId');  // Obtener el ID de usuario desde localStorage
+                if (!userId) {
+                    console.error("User ID no encontrado en el localStorage.");
+                    return;
+                }
+
+                const nombre = document.getElementById('edit-nombre').value;
+                const apellido = document.getElementById('edit-apellido').value;
+                const email = document.getElementById('edit-email').value;
+                const password = document.getElementById('edit-password').value;
+
+                axios.put(`http://localhost:8080/usuarios/${userId}`, {
+                    nombre: nombre,
+                    apellido: apellido,
+                    email: email,
+                    password: password
+                })
+                    .then(function (response) {
+                        alert('Perfil actualizado exitosamente!');
+                        console.log(response.data);
+                    })
+                    .catch(function (error) {
+                        console.error('Error al actualizar el perfil:', error);
+                        alert('Hubo un error al actualizar el perfil.');
+                    });
+            });
+
+            document.getElementById('login').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                axios.post('http://localhost:8080/auth/login', {
+                    email: email,
+                    password: password
+                })
+                    .then(function (response) {
+                        const userId = response.data.id;  // Verifica que response.data tenga la estructura correcta
+                        localStorage.setItem('userId', userId);  // Guarda el ID en el localStorage
+                        console.log('Inicio de sesión exitoso:', response.data);
+                        alert('Inicio de sesión exitoso');
+                        showHomepage();
+                    })
+                    .catch(function (error) {
+                        console.error('Error de inicio de sesión:', error);
+                        alert('Error de inicio de sesión. Verifica tus credenciales.');
+                    });
+            });
+
+            const API_URL_PRODUCTO = "http://localhost:8080/productos"; // Cambia el puerto si es necesario
+
+            export const listProductos = async () => {
+                const response = await fetch(API_URL_PRODUCTO);
+                return await response.json();
+            };
+
+            axios.post('http://localhost:8080/productos', {
+                nombre: nombre,
+                descripcion: descripcion,
+                precio: precio,
+                stock: stock,
+                imagen_url: imagenUrl
+            })
+                .then(function (response) {
+                    console.log('Producto agregado:', response.data);  // Verifica que los datos se devuelven correctamente
+                    alert('Producto agregado exitosamente');
+                    // Actualiza la lista de productos
+                    fetchProductos();  // Llama a la función para actualizar la vista
+                })
+                .catch(function (error) {
+                    console.error('Error al agregar el producto:', error);
+                    alert('Hubo un error al agregar el producto.');
+                });
+
+            // Función para eliminar un producto
+            async function eliminarProducto(id) {
+                try {
+                    await axios.delete(`http://localhost:8080/productos/${id}`);
+                    alert('Producto eliminado exitosamente!');
+                    // Vuelve a cargar la lista de productos para reflejar los cambios
+                    fetchProductos();
+                } catch (error) {
+                    console.error('Error al eliminar producto:', error);
+                    alert('Hubo un error al eliminar el producto.');
+                }
+            }
+
+            export const deleteProducto = async (productoId) => {
+                const response = await fetch(`${API_URL_PRODUCTO}/${productoId}`, {
+                    method: "DELETE",
+                });
+                return response.ok; // Devuelve true si la eliminación fue exitosa
+            };
+
+            export const updateProducto = async (productoId, updatedProducto) => {
+                const response = await fetch(`${API_URL_PRODUCTO}/${productoId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedProducto),
+                });
+                return await response.json();
+            };
+
+            axios.post(`http://localhost:8080/pedidos/usuario/${usuarioId}/producto/${productoId}`, {
+                cantidad: cantidad // Pasas la cantidad que se está agregando
+            })
+                .then(function (response) {
+                    console.log('Pedido creado exitosamente:', response.data);
+                    alert('Producto añadido al carrito exitosamente!');
+                })
+                .catch(function (error) {
+                    console.error('Error al crear el pedido:', error);
+                    alert('Hubo un error al crear el pedido.');
+                });
+
+        </script>
+        <section id="productos-section" style="display: none;">
+            <!-- Aquí se mostrarán los productos -->
+        </section>
+
+        <script src="./js/scripts.js"></script>
+    </div>
+</body>
+
+</html>

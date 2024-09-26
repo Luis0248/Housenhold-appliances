@@ -1,0 +1,324 @@
+/* Estilo General del Cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Contenedor Principal */
+.container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Contenedor de Autenticación */
+.auth-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Contenedor de Imagen */
+.auth-image {
+    background-color: white;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.auth-image img {
+    width: 90%;
+    max-width: 100%;
+    /* Aumenta el tamaño de la imagen */
+    height: auto;
+    /* Mantiene la relación de aspecto */
+    object-fit: cover;
+    border-radius: 10px;
+    /* Bordes redondeados para la imagen */
+}
+
+/* Contenedor del Formulario */
+.auth-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.auth-form form {
+    width: 100%;
+    max-width: 360px;
+    /* Ajusta el ancho máximo del formulario */
+    max-height: 600px;
+    /* Limita la altura máxima del formulario */
+    overflow-y: auto;
+    /* Permite el scroll vertical si el contenido excede la altura máxima */
+    box-sizing: border-box;
+    padding: 1em;
+    border-radius: 10px;
+    /* Bordes redondeados para el formulario */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Agrega una sombra para mejor visibilidad */
+}
+
+.auth-form form input,
+.auth-form form button {
+    display: block;
+    width: calc(100% - 2em);
+    /* Ajusta el ancho para el padding */
+    margin: 0.5em 0;
+    padding: 0.75em;
+    box-sizing: border-box;
+}
+
+.auth-form form input {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    /* Reduce el tamaño de la fuente para hacer el formulario más compacto */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.auth-form form input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.auth-form form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.75em;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.auth-form form button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Estilo del Texto de la Promoción de Inicio de Sesión o Registro */
+.login-prompt {
+    text-align: center;
+    margin-top: 1em;
+}
+
+.login-prompt a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-prompt a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo de Página de Inicio */
+#homepage {
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+/* Estilo del Header */
+header {
+    background-color: #f4f4f4;
+    padding: 1em;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+nav a {
+    margin: 0 1em;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Estilo de Productos */
+#products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+.product {
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 2%;
+    width: 150px;
+    margin: 1em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.product img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.product p {
+    margin-top: 0.5em;
+}
+
+/* Detalles del Producto */
+#product-details {
+    display: none;
+    text-align: center;
+    padding: 1em;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#product-details img {
+    max-width: 90%;
+    /* Aumenta el ancho máximo de la imagen en los detalles del producto */
+    height: auto;
+    border-radius: 8px;
+}
+
+button#button_cart{
+    font-size: 30px;
+    width: 5%;
+    border-radius: 10px;
+}
+
+/* Estilo del Perfil del Comprador */
+#profile {
+    display:
+        none;
+}
+
+div#profile {
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+
+#profile form {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 2.5%;
+    margin-top: 2%;
+    margin-left: 25%;
+    width: 50%;
+    background-color: white;
+
+}
+
+#profile form input,
+#profile form button {
+    display: block;
+    border-radius: 10px;
+    width: calc(100% - 2em);
+    margin: 0.5em 0;
+    padding: 0.75em;
+    box-sizing: border-box;
+}
+
+#profile form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    margin-left: 20%;
+}
+
+#profile form button:hover {
+    background-color: #0056b3;
+}
+
+
+#product-details {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que los elementos se ajusten en varias líneas si es necesario */
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+}
+
+#product-img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#product-details p {
+    margin-bottom: 10px;
+    padding: 2%;
+    border: 2px solid;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.product-detail-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.product-detail-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, button {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+}
